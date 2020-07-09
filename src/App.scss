@@ -1,21 +1,38 @@
-$main-font-size: calc(10px + 2vmin);
+$big-font-size: 3vw;
+$small-font-size: 1.25vw;
+$border-radius: 0;
 
 .App {
   text-align: center;
 }
 
 .App-logo {
-  height: 30vmin;
+  height: 30vw;
   pointer-events: none;
 }
 
 .loginInput {
-  margin: 0 5vmin 0 0;
-  padding: 2vmin;
-  font-size: $main-font-size;
-  border-radius: 2vmin;
+  margin: 0 0 0 1.5vw;
+  padding: 1.5vw;
+  font-size: $big-font-size;
+  border-radius: $border-radius;
   outline: 0;
 }
+
+.loginButton {
+
+  cursor: pointer;
+  height:  6vw;
+  position: relative;
+  top: .75vw;
+
+}
+
+.avatar {
+  height: 4vw;
+  max-width: 4vw;
+}
+
 
 
 
@@ -25,17 +42,76 @@ $main-font-size: calc(10px + 2vmin);
   }
 }
 
+.loggedInWrapper {
+  
+  width: calc(100% - 10vw); 
+    margin: 2.5vw 5vw;
+}
+
+.loginWrapper {
+  
+  margin-top: 2vw;
+
+
+}
+
+.subtitle {
+font-size: $small-font-size
+  
+}
+h2 
+{
+  margin-top: 0;
+  font-size: $big-font-size;
+  text-align: left;
+}
+
 .App-header {
-  min-height: 100vh;
+  min-height: 25vw;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: $main-font-size;
+  font-size: $big-font-size;
 }
 
 .App-link {
   color: rgb(112, 76, 182);
+}
+.wrapper {
+  display: flex; 
+  flex-direction: row;
+  border-radius: $border-radius;
+  border: 1px solid #999; 
+  height: calc(90%-20vw);
+  font-size: $small-font-size;
+
+}
+
+.column {
+  overflow: auto;
+
+
+
+}
+
+tr:hover:not(:first-child) {
+  background-color: #EEE;
+}
+
+tr {
+  height: 4vw;
+  padding: 2vw;
+}
+
+table {
+  width: 100%;
+  border-spacing: 0;
+}
+
+th {
+ 
+  cursor: pointer;
 }
 
 @keyframes App-logo-float {
@@ -48,4 +124,15 @@ $main-font-size: calc(10px + 2vmin);
   100% {
     transform: scale(1);
   }
+}
+
+
+@media (max-width: 600px) {
+  
+  .wrapper {  
+    flex-direction: column;
+  }
+
+
+
 }
