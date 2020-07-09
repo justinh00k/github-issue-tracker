@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import logo from "./logo.svg";
 import { Counter } from "./features/counter/Counter";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faCodeBranch} from  '@fortawesome/free-solid-svg-icons'
+import { faGithub,faGithubAlt } from '@fortawesome/free-brands-svg-icons'
 import "./App.scss";
 
 function App() {
@@ -8,6 +11,7 @@ function App() {
   const [repos, setRepos] = useState([]);
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
+  const [loginError,setLoginError] = useState(false)
 
   const login = () => {
     if (login && password)
@@ -20,17 +24,22 @@ function App() {
           setRepos(data);
           console.log(data);
         })
-        .catch(console.log);
+        .catch(setLoginError(true));
   };
 
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <FontAwesomeIcon icon={faGithubAlt} color="#222222" size="6x" className="App-logo" alt="Github Logo"  />
 
-        <p>
+        <h2>Please enter your Github user name and private key.</h2>
+
+        <div style={{marginTop: '2vmin', display: 'flex'}}>
           <input
             id="user"
+            placeholder="User name"
+            className="loginInput"
+            style={{borderColor: loginError && user !== ''  ? 'red' : '#999'}}
             value={user}
             onChange={() =>
               setUser(document.getElementById("user").value.trim())
@@ -38,56 +47,19 @@ function App() {
           />
           <input
             id="password"
+            className="loginInput"
+            placeholder="Private key"
+            style={{borderColor: loginError && password !== ''  ? 'red' : '#999'}}
             value={password}
             onChange={() =>
               setPassword(document.getElementById("password").value.trim())
             }
           />
-          <button onClick={login} />
-        </p>
 
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
+<FontAwesomeIcon style={{cursor: 'pointer'}} onClick={login} icon={faGithub} color="#999999" size="3x" className="Login" alt="Github Login"  />
+
+        </div>
+
       </header>
     </div>
   );
