@@ -2,10 +2,10 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub, faGithubAlt } from "@fortawesome/free-brands-svg-icons";
 
-import { useDispatch, useSelector } from 'react-redux';
-import { getLoginError, logInAsync, setLoginError } from '../reducers/login';
+import { useDispatch, useSelector } from "react-redux";
+import { getLoginError, logInAsync, setLoginError } from "../reducers/login";
 
-const LoginScreen = () =>  {
+const LoginScreen = () => {
   const dispatch = useDispatch();
   const loginError = useSelector(getLoginError);
 
@@ -18,31 +18,37 @@ const LoginScreen = () =>  {
         alt="Github Logo"
       />
 
-      <h2>Please enter your Github <a href="https://github.com/settings/tokens">token</a>.</h2>
+      <h2>
+        Please enter your GitHub <a href="https://github.com/settings/tokens">token</a>:
+      </h2>
 
       <div className="loginWrapper">
-        
         <input
           id="token"
           className="loginInput"
           placeholder="Token"
           size={45}
           onKeyDown={(e) => {
-            if (e.key === "Enter") dispatch(logInAsync(document.getElementById("token").value.trim()));
+            if (e.key === "Enter")
+              dispatch(
+                logInAsync(document.getElementById("token").value.trim())
+              );
           }}
           style={{ borderColor: loginError ? "red" : "#999" }}
-          onChange={() => dispatch(setLoginError(false)) }
+          onChange={() => dispatch(setLoginError(false))}
         />
 
         <FontAwesomeIcon
           className="loginButton"
-          onClick={()=>dispatch(logInAsync(document.getElementById("token").value.trim()))}
+          onClick={() =>
+            dispatch(logInAsync(document.getElementById("token").value.trim()))
+          }
           icon={faGithubAlt}
-          color="#999999"
+          color="#222"
           alt="Github Login"
         />
       </div>
     </div>
   );
-        }
-export default LoginScreen
+};
+export default LoginScreen;

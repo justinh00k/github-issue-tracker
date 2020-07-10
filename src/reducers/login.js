@@ -6,19 +6,19 @@ export const login = createSlice({
     token: "",
     repos: false,
     loginError: false,
-    issues: []
+    issues: [],
   },
   reducers: {
-    setLoginError: (state, {payload}) => {
+    setLoginError: (state, { payload }) => {
       state.loginError = payload;
     },
-    setRepos: (state, {payload}) => {
+    setRepos: (state, { payload }) => {
       state.repos = payload;
     },
-    setToken: (state, {payload}) => {
+    setToken: (state, { payload }) => {
       state.token = payload;
     },
-    setIssues: (state, {payload}) => {
+    setIssues: (state, { payload }) => {
       state.issues = payload;
     },
   },
@@ -26,7 +26,7 @@ export const login = createSlice({
 
 export const { setLoginError, setRepos, setToken, setIssues } = login.actions;
 
-export const logInAsync = loginToken => dispatch => {
+export const logInAsync = (loginToken) => (dispatch) => {
   if (loginToken) {
     dispatch(setToken(loginToken));
 
@@ -42,17 +42,17 @@ export const logInAsync = loginToken => dispatch => {
         } else dispatch(setLoginError(true));
       });
   } else dispatch(setLoginError(false));
-
 };
 
-export const getIssuesAsync = (url, token) => dispatch => {
-
+export const getIssuesAsync = (url, token) => (dispatch) => {
   fetch(url + "/issues", {
     method: "GET",
     headers: { Authorization: `token ${token}` },
   })
     .then((res) => res.json())
-    .then((data) =>  dispatch(setIssues(data.length > 0 ? data : [{ repository_url: url }])))
+    .then((data) =>
+      dispatch(setIssues(data.length > 0 ? data : [{ repository_url: url }]))
+    )
     .catch((error) => console.log(error));
 };
 
