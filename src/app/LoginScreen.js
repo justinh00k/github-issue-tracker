@@ -1,20 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub, faGithubAlt } from "@fortawesome/free-brands-svg-icons";
 
+import { useDispatch, useSelector } from 'react-redux';
+import { getLoginError, logInAsync, setLoginError } from '../reducers/login';
 
-const LoginScreen = ({ login, loginError, setLoginError }) => {
-    const [token, setToken] = useState(
-      "dc1705a477c2f7b1c58b455c407debf0c015e377"
-    );
-    
+const LoginScreen = () =>  {
+  const dispatch = useDispatch();
+  const loginError = useSelector(getLoginError);
+
   return (
-    <>
+    <div className="loginScreenWrapper">
       <FontAwesomeIcon
         icon={faGithub}
         color="#222222"
-        size="6x"
-        className="App-logo"
+        className="logo"
         alt="Github Logo"
       />
 
@@ -28,27 +28,21 @@ const LoginScreen = ({ login, loginError, setLoginError }) => {
           placeholder="Token"
           size={45}
           onKeyDown={(e) => {
-            if (e.key === "Enter") login(token);
+            if (e.key === "Enter") dispatch(logInAsync(document.getElementById("token").value.trim()));
           }}
           style={{ borderColor: loginError ? "red" : "#999" }}
-          value={token}
-          onChange={() => {
-            setLoginError(false);
-            setToken(document.getElementById("token").value.trim());
-          }}
+          onChange={() => dispatch(setLoginError(false)) }
         />
 
         <FontAwesomeIcon
           className="loginButton"
-          onClick={()=>login(token)}
+          onClick={()=>dispatch(logInAsync(document.getElementById("token").value.trim()))}
           icon={faGithubAlt}
           color="#999999"
-          size="3x"
           alt="Github Login"
         />
       </div>
-    </>
+    </div>
   );
-};
-
+        }
 export default LoginScreen

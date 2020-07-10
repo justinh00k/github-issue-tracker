@@ -6,9 +6,17 @@ $border-radius: 0;
   text-align: center;
 }
 
-.App-logo {
-  height: 30vw;
+.loginScreenWrapper{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
   pointer-events: none;
+  font-size: 15vw;
+  margin: 2.5vw;
 }
 
 .loginInput {
@@ -20,12 +28,9 @@ $border-radius: 0;
 }
 
 .loginButton {
-
   cursor: pointer;
-  height:  6vw;
-  position: relative;
-  top: .75vw;
-
+  font-size: 6vw;
+  margin-left: 2vw;
 }
 
 .avatar {
@@ -33,69 +38,43 @@ $border-radius: 0;
   max-width: 4vw;
 }
 
-
-
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-float infinite 2s ease-out;
-  }
-}
-
 .loggedInWrapper {
-  
-  width: calc(100% - 10vw); 
-    margin: 2.5vw 5vw;
+  width: calc(100% - 10vw);
+  margin: 2.5vw 5vw;
 }
 
 .loginWrapper {
-  
   margin-top: 2vw;
-
-
+  display: flex;
 }
 
 .subtitle {
-font-size: $small-font-size
-  
+  font-size: $small-font-size;
 }
-h2 
-{
+h2 {
   margin-top: 0;
   font-size: $big-font-size;
   text-align: left;
 }
 
-.App-header {
-  min-height: 25vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: $big-font-size;
-}
-
-.App-link {
-  color: rgb(112, 76, 182);
-}
 .wrapper {
-  display: flex; 
+  background-color: #fff;
+  display: flex;
   flex-direction: row;
   border-radius: $border-radius;
-  border: 1px solid #999; 
+  border: 1px solid #999;
   font-size: $small-font-size;
   height: calc(94vh - 12vw);
-
+  box-shadow: 5px 5px 5px 3px #ddd;
 }
 
 .column {
   overflow: auto;
   border: 1px solid #999;
-
 }
 
 #issues tr:hover:not(:first-child) {
-  background-color: #EEE;
+  background-color: #eee;
 }
 
 a:link {
@@ -107,7 +86,7 @@ a:hover {
 }
 
 #repos tr:hover {
-  background-color: #EEE;
+  background-color: #eee;
   cursor: pointer;
 }
 
@@ -117,7 +96,6 @@ tr {
 }
 
 #repos td {
-
   padding: 2vh;
 }
 
@@ -127,11 +105,10 @@ table {
 }
 
 th {
- 
   cursor: pointer;
 }
 
-@keyframes App-logo-float {
+@keyframes logo-beat {
   0% {
     transform: scale(1);
   }
@@ -143,17 +120,18 @@ th {
   }
 }
 
-
 @media (max-width: 600px) {
-  
-  .wrapper {  
+  .wrapper {
     flex-direction: column;
   }
 
   .column {
-    border: 1px solid #999
+    border: 1px solid #999;
   }
+}
 
-
-
+@media (prefers-reduced-motion: no-preference) {
+  .logo {
+    animation: logo-beat infinite 2s ease-out;
+  }
 }

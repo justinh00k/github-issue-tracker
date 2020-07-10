@@ -6,9 +6,13 @@ import {
   faSortDown,
 } from "@fortawesome/free-solid-svg-icons";
 import * as timeago from "timeago.js";
+import { useSelector, useDispatch} from "react-redux";
+import {getToken, getIssues, getIssuesAsync} from '../reducers/login'
 
-const IssueTracker = ({ repos, token }) => {
-  const [issues, setIssues] = useState([]);
+const IssueTracker = ({ repos }) => {
+  const token = useSelector(getToken);
+  const issues = [...useSelector(getIssues)];
+  const dispatch = useDispatch();
   const [sortOrder, setSortOrder] = useState(
     localStorage.getItem("sortOrder" + token) || ["created", false]
   );
@@ -17,7 +21,6 @@ const IssueTracker = ({ repos, token }) => {
     <FontAwesomeIcon
       icon={sortOrder[1] ? faSortDown : faSortUp}
       color="#222222"
-      size="1x"
       style={{ position: "absolute", marginLeft: "0.5vw" }}
       alt={`Sorted ${sortOrder[1] ? "Ascending" : "Descending"}`}
     />
@@ -56,18 +59,6 @@ const IssueTracker = ({ repos, token }) => {
     }
   };
 
-  const fetchIssues = (url) => {
-    fetch(url + "/issues", {
-      method: "GET",
-      headers: { Authorization: `token ${token}` },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setIssues(data.length > 0 ? data : [{ repository_url: url }]);
-      })
-      .catch((error) => console.log(error));
-  };
-
   return (
     <div className="loggedInWrapper">
       <h2>
@@ -95,7 +86,7 @@ const IssueTracker = ({ repos, token }) => {
                           ? "#CCC"
                           : "transparent",
                     }}
-                    onClick={() => fetchIssues(repo.url)}
+                    onClick={() => dispatch(getIssuesAsync(repo.url,token))}
                   >
                     {repo.full_name}
                   </td>
@@ -108,7 +99,7 @@ const IssueTracker = ({ repos, token }) => {
         <div id="issues" className="column" style={{ flex: 3 }}>
           <table>
             <tbody>
-              {issues.length > 0 && issues[0].id ? (
+              {issues.length > 0 && !!issues[0].id ? (
                 <tr>
                   <th
                     style={{
@@ -153,11 +144,7 @@ const IssueTracker = ({ repos, token }) => {
               ) : (
                 <tr>
                   <td colSpan={4}>
-                    {issues[0] && issues[0].repository_url && (
-                      <div>
-                        <b>No issues in this repo.</b>
-                      </div>
-                    )}
+                    {issues[0] && !!issues[0].repository_url && (<b>No issues in this repo.</b>)}
                   </td>
                 </tr>
               )}
