@@ -83,25 +83,34 @@ h2
   flex-direction: row;
   border-radius: $border-radius;
   border: 1px solid #999; 
-  height: calc(90%-20vw);
   font-size: $small-font-size;
+  height: calc(94vh - 12vw);
 
 }
 
 .column {
   overflow: auto;
-
-
+  border: 1px solid #999;
 
 }
 
-tr:hover:not(:first-child) {
+#issues tr:hover:not(:first-child) {
   background-color: #EEE;
+}
+
+#repos tr:hover {
+  background-color: #EEE;
+  cursor: pointer;
 }
 
 tr {
   height: 4vw;
   padding: 2vw;
+}
+
+#repos td {
+
+  padding: 2vh;
 }
 
 table {
@@ -131,6 +140,10 @@ th {
   
   .wrapper {  
     flex-direction: column;
+  }
+
+  .column {
+    border: 1px solid #999
   }
 
 

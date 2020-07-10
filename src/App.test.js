@@ -1,15 +1,14 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import { Provider } from 'react-redux';
-import store from './app/store';
+import renderer from 'react-test-renderer';
 import App from './App';
+import IssueTracker from './app/IssueTracker'
 
-test('renders learn react link', () => {
-  const { getByText } = render(
-    <Provider store={store}>
-      <App />
-    </Provider>
-  );
+it('renders a snapshot', () => {
+  const tree = renderer.create(<App/>).toJSON();
+  expect(tree).toMatchSnapshot();
+});
 
-  expect(getByText(/learn/i)).toBeInTheDocument();
+it('issue tracker loads even if user has no repos', () => {
+  const tree = renderer.create(<IssueTracker user="" password="" repos={[]} />).toJSON();
+  expect(tree).toMatchSnapshot();
 });
