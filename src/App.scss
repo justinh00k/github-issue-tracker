@@ -34,7 +34,8 @@ $border-radius: 0;
 }
 
 .avatar {
-  height: 4vw;
+  margin-top: .25vw;
+  height: 3.5vw;
   max-width: 4vw;
 }
 
@@ -77,6 +78,7 @@ h2 {
   background-color: #eee;
 }
 
+a:visited,
 a:link {
   color: #222;
 }
@@ -93,6 +95,7 @@ a:hover {
 tr {
   height: 4vw;
   padding: 2vw;
+  overflow: hidden;
 }
 
 .titles {
@@ -124,14 +127,33 @@ th {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 900px) {
   .wrapper {
     flex-direction: column;
+  font-size: 1rem;
   }
 
-  .column {
-    border: 1px solid #999;
+  h2 {
+    font-size: 1.5rem
   }
+
+  .subtitle {
+    font-size: .75rem
+  }
+
+}
+
+@media (max-width: 600px) {
+
+
+  h2 {
+    font-size: 1rem;
+  }
+  .wrapper {
+  
+  font-size: .75rem;
+  }
+
 }
 
 @media (prefers-reduced-motion: no-preference) {

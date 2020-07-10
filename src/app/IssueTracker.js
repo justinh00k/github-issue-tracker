@@ -13,9 +13,16 @@ const IssueTracker = ({ repos }) => {
   const token = useSelector(getToken);
   const issues = [...useSelector(getIssues)];
   const dispatch = useDispatch();
-  const [sortOrder, setSortOrder] = useState(
-    localStorage.getItem("sortOrder" + token) || ["created", false]
-  );
+
+let orderState;
+  try {
+    orderState = JSON.parse(localStorage.getItem("sortOrder" + token));
+} finally {
+  orderState = orderState || ["created", false]
+}
+
+  const [sortOrder, setSortOrder] = useState(orderState);
+
 
   const sortIcon = (
     <FontAwesomeIcon
@@ -29,7 +36,7 @@ const IssueTracker = ({ repos }) => {
   const sortBy = (type) => {
     const newSort = [type, sortOrder[0] === type ? !sortOrder[1] : true];
     setSortOrder(newSort);
-    localStorage.setItem("sortOrder" + token, newSort);
+    localStorage.setItem("sortOrder" + token,  JSON.stringify(newSort));
   };
 
   const getSortOrder = (a, b) => {
@@ -70,7 +77,7 @@ const IssueTracker = ({ repos }) => {
           alt=""
         />
         GitHub Issue Tracker
-        <span className="subtitle"> by justinh00k</span>
+        <span className="subtitle"> by&nbsp;<a href="mailto:justinhook@gmail.com">justinh00k</a></span>
       </h2>
 
       <div className="wrapper">
@@ -98,7 +105,7 @@ const IssueTracker = ({ repos }) => {
 
         {issues.length > 0 && (
           <div id="issues" className="column" style={{ flex: 3 }}>
-            <table>
+            <table style={{height: issues[0] && !!issues[0].repository_url ? '100%' : 'auto'}}>
               <tbody>
                 {issues.length > 0 && !!issues[0].id ? (
                   <tr>
@@ -144,9 +151,9 @@ const IssueTracker = ({ repos }) => {
                   </tr>
                 ) : (
                   <tr>
-                    <td colSpan={4}>
+                    <td colSpan={4} style={{height: '100%'}}>
                       {issues[0] && !!issues[0].repository_url && (
-                        <b>No issues in this repo.</b>
+                        <b style={{color: '#999'}}>No issues in this repo.</b>
                       )}
                     </td>
                   </tr>

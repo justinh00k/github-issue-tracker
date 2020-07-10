@@ -51,7 +51,7 @@ export const getIssuesAsync = (url, token) => (dispatch) => {
   })
     .then((res) => res.json())
     .then((data) =>
-      dispatch(setIssues(data.length > 0 ? data : [{ repository_url: url }]))
+      dispatch(setIssues(data.length > 0 ? data : [{ repository_url: url }])) // If array is empty, write the repo URL anyway so we can detect which one is selected.
     )
     .catch((error) => console.log(error));
 };
