@@ -7,10 +7,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import * as timeago from "timeago.js";
 
-const IssueTracker = ({ repos, user, password }) => {
+const IssueTracker = ({ repos, token }) => {
   const [issues, setIssues] = useState([]);
   const [sortOrder, setSortOrder] = useState(
-    localStorage.getItem("sortOrder" + user) || ["created", false]
+    localStorage.getItem("sortOrder" + token) || ["created", false]
   );
 
   const sortIcon = (
@@ -26,7 +26,7 @@ const IssueTracker = ({ repos, user, password }) => {
   const sortBy = (type) => {
     const newSort = [type, sortOrder[0] === type ? !sortOrder[1] : true];
     setSortOrder(newSort);
-    localStorage.setItem("sortOrder" + user, newSort);
+    localStorage.setItem("sortOrder" + token, newSort);
   };
 
   const getSortOrder = (a, b) => {
@@ -59,7 +59,7 @@ const IssueTracker = ({ repos, user, password }) => {
   const fetchIssues = (url) => {
     fetch(url + "/issues", {
       method: "GET",
-      headers: { Authorization: "Basic " + btoa(`${user}:${password}`) },
+      headers: { Authorization: `token ${token}` },
     })
       .then((res) => res.json())
       .then((data) => {

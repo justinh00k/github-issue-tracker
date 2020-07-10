@@ -4,8 +4,7 @@ import { faGithub, faGithubAlt } from "@fortawesome/free-brands-svg-icons";
 
 
 const LoginScreen = ({ login, loginError, setLoginError }) => {
-    const [user, setUser] = useState("justinh00k");
-    const [password, setPassword] = useState(
+    const [token, setToken] = useState(
       "dc1705a477c2f7b1c58b455c407debf0c015e377"
     );
     
@@ -19,38 +18,29 @@ const LoginScreen = ({ login, loginError, setLoginError }) => {
         alt="Github Logo"
       />
 
-      <h2>Please enter your Github user name and private key.</h2>
+      <h2>Please enter your Github <a href="https://github.com/settings/tokens">token</a>.</h2>
 
       <div className="loginWrapper">
+        
         <input
-          id="user"
-          placeholder="User name"
+          id="token"
           className="loginInput"
-          style={{ borderColor: loginError ? "red" : "#999" }}
-          value={user}
-          onChange={() => {
-            setLoginError(false);
-            setUser(document.getElementById("user").value.trim());
-          }}
-        />
-        <input
-          id="password"
-          className="loginInput"
-          placeholder="Private key"
+          placeholder="Token"
+          size={45}
           onKeyDown={(e) => {
-            if (e.key === "Enter") login(user, password);
+            if (e.key === "Enter") login(token);
           }}
           style={{ borderColor: loginError ? "red" : "#999" }}
-          value={password}
+          value={token}
           onChange={() => {
             setLoginError(false);
-            setPassword(document.getElementById("password").value.trim());
+            setToken(document.getElementById("token").value.trim());
           }}
         />
 
         <FontAwesomeIcon
           className="loginButton"
-          onClick={()=>login(user, password)}
+          onClick={()=>login(token)}
           icon={faGithubAlt}
           color="#999999"
           size="3x"

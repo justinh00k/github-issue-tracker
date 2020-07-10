@@ -6,22 +6,19 @@ import IssueTracker from './app/IssueTracker'
 
 function App() {
   const [repos, setRepos] = useState(false);
-  const [userAndPassword,setUserAndPassword] = useState([])
+  const [token,setToken] = useState("")
   const [loginError,setLoginError] = useState(false)
 
-  const login = async (user, password) => {
-    if (user && password)
+  const login = async (loginToken) => {
+    if (loginToken)
 {
-
-      setUserAndPassword([user,password])
-
+      setToken(loginToken)
       return fetch("https://api.github.com/user/repos", {
         method: "GET",
-        headers: { Authorization: "Basic " + btoa(`${user}:${password}`) },
+        headers: { Authorization: `token ${token}`},
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data)
           if (Array.isArray(data)){
           setRepos(data);
           setLoginError(false)
@@ -34,15 +31,13 @@ function App() {
       }
       else
       setLoginError(true)
-
-      
   };
 
   return (
     <div className="App">
       <header className="App-header">
         {repos 
-        ? <IssueTracker user={userAndPassword[0]} password={userAndPassword[1]} repos={repos} /> 
+        ? <IssueTracker token={token} repos={repos} /> 
         :   <LoginScreen loginError={loginError} setLoginError={setLoginError} login={login} />
         }
       </header>

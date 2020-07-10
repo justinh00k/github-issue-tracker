@@ -98,6 +98,14 @@ h2
   background-color: #EEE;
 }
 
+a:link {
+  color: #222;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
 #repos tr:hover {
   background-color: #EEE;
   cursor: pointer;

@@ -74,7 +74,7 @@ exports[`issue tracker loads even if user has no repos 1`] = `
 </div>
 `;
 
-exports[`renders a snapshot 1`] = `
+exports[`snapshot is unchanged since last 1`] = `
 <div
   className="App"
 >
@@ -101,29 +101,24 @@ exports[`renders a snapshot 1`] = `
       />
     </svg>
     <h2>
-      Please enter your Github user name and private key.
+      Please enter your Github 
+      <a
+        href="https://github.com/settings/tokens"
+      >
+        token
+      </a>
+      .
     </h2>
     <div
       className="loginWrapper"
     >
       <input
         className="loginInput"
-        id="user"
-        onChange={[Function]}
-        placeholder="User name"
-        style={
-          Object {
-            "borderColor": "#999",
-          }
-        }
-        value="justinh00k"
-      />
-      <input
-        className="loginInput"
-        id="password"
+        id="token"
         onChange={[Function]}
         onKeyDown={[Function]}
-        placeholder="Private key"
+        placeholder="Token"
+        size={45}
         style={
           Object {
             "borderColor": "#999",
